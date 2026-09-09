@@ -9,6 +9,7 @@ This can be some basic classes to draw quicker
 
 As this project is kind suppose to be like an engine, we can start to structure like a game
 
+- Game.h (This would have the window creatin logic and the main loop under a method)
 - Object.h (abstract representation of every game object, can serve as a basis)
 - Camera.h (Specific object for the camera)
 - Inputs.h (Something to handle the inputs, keyboard, mouse, etc)
