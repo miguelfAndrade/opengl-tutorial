@@ -40,7 +40,7 @@ Game::~Game() {
 
 int Game::start() {
 
-  const char* vertexShaderSource = R"(
+const char* vertexShaderSource = R"(
 #version 330 core
 layout (location = 0) in vec3 aPos;
 void main() {

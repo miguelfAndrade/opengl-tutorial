@@ -8,7 +8,10 @@
 class Game {
  private:
   GLFWwindow* window;
-
+  // std::vector<Scene> scenes; Can be levels
+  // Scene -> std::vector<Object> objects
+  // class Shape: public Object
+  
  public:
   Game(int width, int height, const char* title);
   ~Game();
