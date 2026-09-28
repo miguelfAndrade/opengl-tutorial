@@ -63,19 +63,27 @@ void main() {
   glViewport(0, 0, framebufferWidth, framebufferHeight);
 
   // Triangle vertices
+  // Take into account that the coordinates are normalized
+  // Normalized Device Coordinates (NDC)
   float vertices[] = {
       -0.5f, -0.5f, 0.0f,
        0.5f, -0.5f, 0.0f,
        0.0f,  0.5f, 0.0f
   };
 
-  
+  // VAO (Vertex Array Object)
+  // VBO (Vetex Buffer Object)
   unsigned int VAO, VBO;
-  glGenVertexArrays(1, &VAO);
+  // Generate the buffer and store the correspondent ID into VBO variable
+  // Bind the buffer ID to the OpenGL array buffer object
+  // Upload to the GPU the data
   glGenBuffers(1, &VBO);
-  glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  
+  // Generate the array and store the correspondent ID into VAO variable
+  glGenVertexArrays(1, &VAO);
+  glBindVertexArray(VAO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
  
