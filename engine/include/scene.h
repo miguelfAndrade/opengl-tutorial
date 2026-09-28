@@ -5,6 +5,7 @@
 
 class Scene {
  private:
+  // std::vector<Object> objects;
  public:
   Scene()
   ~Scene()
