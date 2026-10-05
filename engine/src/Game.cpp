@@ -1,10 +1,10 @@
-#include "game.h"
+#include "Game.h"
 
 Game::Game(int width, int height, const char* title) {
   if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
         return;
-    }
+  }
 
   // Setting some properties to the new window that I want to create
   // Some tutorials use OpenGL 3.3 as default, this means minimum version
@@ -74,18 +74,20 @@ void main() {
   // VAO (Vertex Array Object)
   // VBO (Vetex Buffer Object)
   unsigned int VAO, VBO;
-  // Generate the buffer and store the correspondent ID into VBO variable
-  // Bind the buffer ID to the OpenGL array buffer object
-  // Upload to the GPU the data
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  
-  // Generate the array and store the correspondent ID into VAO variable
+  // Create VAO (Vertex Array Object) object and store the ID
   glGenVertexArrays(1, &VAO);
+  // Tells to OpenGL to activate this VAO (This VAO will be used to store the next configurations)
   glBindVertexArray(VAO);
+  // Create VBO (Vertex Buffer Object) object and store the ID
+  glGenBuffers(1, &VBO);
+  // Binds the GL_ARRAY_BUFFER target to the VBO ID
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  // Upload the data to the defined target, which is bound to the previouly created vertex buffer object
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  // Tells OpenGL how to interpret the data
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
+  glBindVertexArray(0);
  
   unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);

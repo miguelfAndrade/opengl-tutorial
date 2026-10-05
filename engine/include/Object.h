@@ -13,7 +13,6 @@ enum GameDimensionType {
   2D,
   3D
 };
-
 class Object {
  private:
   Coordinates position;
