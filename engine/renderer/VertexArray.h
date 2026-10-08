@@ -1,5 +1,7 @@
 #pragma once
 
+#include "VertexBuffer.h"
+
 class VertexArray {
  private:
   unsigned int id;
@@ -7,6 +9,8 @@ class VertexArray {
  public:
   VertexArray();
   ~VertexArray();
+
+  void addVertexBuffer(const VertexBuffer& vb);
   void bind() const;
   void unbind() const;
 }

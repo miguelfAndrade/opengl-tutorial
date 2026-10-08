@@ -1,0 +1,26 @@
+#include "utils.h"
+#include "VertexBuffer.h"
+
+
+VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
+    // Creates a Buffer, binds it to buffer object and "adds" the data to the buffer
+    GLCall(glGenBuffers(1, &id));
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, id));
+    GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
+}
+
+VertexBuffer::~VertexBuffer() {
+    GLCall(glDeleteBuffers(1, &id));
+}
+
+void VertexBuffer::Bind() const {
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, id));
+}
+
+void VertexBuffer::Unbind() const {
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+}
+
+void VertexBuffer::updateData(const void* data, unsigned int size) const {
+    GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
+}
