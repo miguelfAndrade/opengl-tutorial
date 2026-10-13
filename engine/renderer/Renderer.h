@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ElementBuffer.h"
+// #include "ElementBuffer.h"
 #include "VertexArray.h"
 
 class Renderer {
@@ -8,6 +8,6 @@ class Renderer {
 private:
 
 public:
-    void Clear() const;
-    void Draw(VertexArray& va, ElementBuffer& eb) const;
+    void clear() const;
+    void draw(VertexArray& va) const;
 };

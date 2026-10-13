@@ -1,4 +1,7 @@
 #include "Game.h"
+#include "Renderer.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
 
 Game::Game(int width, int height, const char* title) {
   if (!glfwInit()) {
@@ -71,23 +74,31 @@ void main() {
        0.0f,  0.5f, 0.0f
   };
 
+  Renderer renderer;
+  VertexBuffer vb(vertices, sizeof(vertices));
+  VertexArray va;
+  va.addVertexBuffer(vb);
+
+  vb.unbind();
+  va.unbind();
+
   // VAO (Vertex Array Object)
   // VBO (Vetex Buffer Object)
-  unsigned int VAO, VBO;
-  // Create VAO (Vertex Array Object) object and store the ID
-  glGenVertexArrays(1, &VAO);
-  // Tells to OpenGL to activate this VAO (This VAO will be used to store the next configurations)
-  glBindVertexArray(VAO);
-  // Create VBO (Vertex Buffer Object) object and store the ID
-  glGenBuffers(1, &VBO);
-  // Binds the GL_ARRAY_BUFFER target to the VBO ID
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  // Upload the data to the defined target, which is bound to the previouly created vertex buffer object
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  // Tells OpenGL how to interpret the data
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
-  glBindVertexArray(0);
+  // unsigned int VAO, VBO;
+  // // Create VAO (Vertex Array Object) object and store the ID
+  // glGenVertexArrays(1, &VAO);
+  // // Tells to OpenGL to activate this VAO (This VAO will be used to store the next configurations)
+  // glBindVertexArray(VAO);
+  // // Create VBO (Vertex Buffer Object) object and store the ID
+  // glGenBuffers(1, &VBO);
+  // // Binds the GL_ARRAY_BUFFER target to the VBO ID
+  // glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  // // Upload the data to the defined target, which is bound to the previouly created vertex buffer object
+  // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  // // Tells OpenGL how to interpret the data
+  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  // glEnableVertexAttribArray(0);
+  // glBindVertexArray(0);
  
   unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
@@ -106,16 +117,18 @@ void main() {
  
   while (!glfwWindowShouldClose(window)) {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-      glClear(GL_COLOR_BUFFER_BIT);
+      renderer.clear();
+      // glClear(GL_COLOR_BUFFER_BIT);
       glUseProgram(shaderProgram);
-      glBindVertexArray(VAO);
-      glDrawArrays(GL_TRIANGLES, 0, 3);
+      renderer.draw(va);
+      // glBindVertexArray(VAO);
+      // glDrawArrays(GL_TRIANGLES, 0, 3);
       glfwSwapBuffers(window);
       glfwPollEvents();
   }
  
-  glDeleteVertexArrays(1, &VAO);
-  glDeleteBuffers(1, &VBO);
+  // glDeleteVertexArrays(1, &VAO);
+  // glDeleteBuffers(1, &VBO);
   glDeleteProgram(shaderProgram);
 
   return 0;

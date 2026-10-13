@@ -10,7 +10,11 @@ find_package(glfw3 3.3 REQUIRED)
 add_library(glad STATIC glad/src/gl.c)
 target_include_directories(glad PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/glad/include)
 
+add_library(renderer STATIC renderer/Renderer.cpp renderer/VertexArray.cpp renderer/VertexBuffer.cpp renderer/utils.cpp)
+target_include_directories(renderer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/renderer)
+
 add_library(engine STATIC src/Game.cpp)
 target_include_directories(engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(engine PUBLIC glad OpenGL::GL glfw)
+target_link_libraries(renderer PUBLIC glad OpenGL::GL glfw)
+target_link_libraries(engine PUBLIC renderer)

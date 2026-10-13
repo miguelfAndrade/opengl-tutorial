@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils.h"
 #include "VertexBuffer.h"
 
 class VertexArray {
@@ -13,4 +14,4 @@ class VertexArray {
   void addVertexBuffer(const VertexBuffer& vb);
   void bind() const;
   void unbind() const;
-}
+};

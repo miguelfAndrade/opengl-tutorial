@@ -1,6 +1,6 @@
 #include "utils.h"
-#include "VertexArray.h"
 #include "VertexBuffer.h"
+#include "VertexArray.h"
 
 VertexArray::VertexArray() {
   GLCall(glGenVertexArrays(1, &id));
@@ -10,7 +10,7 @@ VertexArray::~VertexArray() {
   GLCall(glDeleteVertexArrays(1, &id));
 }
 
-void VertexArray::addBuffer(VertexBuffer& vb) {
+void VertexArray::addVertexBuffer(const VertexBuffer& vb) {
   bind();
   vb.bind();
   // For the Vertex Buffer, maybe we want to 

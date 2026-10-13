@@ -1,7 +1,6 @@
 #include "utils.h"
 #include "VertexBuffer.h"
 
-
 VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
     // Creates a Buffer, binds it to buffer object and "adds" the data to the buffer
     GLCall(glGenBuffers(1, &id));
@@ -13,11 +12,11 @@ VertexBuffer::~VertexBuffer() {
     GLCall(glDeleteBuffers(1, &id));
 }
 
-void VertexBuffer::Bind() const {
+void VertexBuffer::bind() const {
     GLCall(glBindBuffer(GL_ARRAY_BUFFER, id));
 }
 
-void VertexBuffer::Unbind() const {
+void VertexBuffer::unbind() const {
     GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 

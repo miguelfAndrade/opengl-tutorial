@@ -2,8 +2,10 @@
 
 #include <glad/gl.h>
 #include <iostream>
+#include <csignal>
 
-#define ASSERT(x) if (!(x)) __debugbreak();
+// #define ASSERT(x) if (!(x)) __debugbreak();
+#define ASSERT(x) if (!(x)) std::raise(SIGABRT);
 #define GLCall(x) GLClearError();\
     x;\
     ASSERT(GLLogCall(#x, __FILE__, __LINE__));
@@ -21,18 +23,10 @@ struct point {
   float x;
   float y;
   float z;
-}
+};
 
-// Clears all OpenGl erros
-void GLClearError() {
-    while (glGetError() != GL_NO_ERROR);
-}
+// Clears all OpenGl errors
+void GLClearError();
 
 // Prints the OpenGL error to the console
-bool GLLogCall(const char* function, const char* file, int line) {
-    while (GLenum error = glGetError()) {
-        std::cout << "[OpenGL Error] (" << error << "): "<< function << " | " << file << ":" << line << '\n';
-        return false;
-    }
-    return true;
-}
+bool GLLogCall(const char* function, const char* file, int line);

@@ -9,4 +9,4 @@ class VertexBuffer {
   void bind() const;
   void unbind() const;
   void updateData(const void* data, unsigned int size) const;
-}
+};
