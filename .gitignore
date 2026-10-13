@@ -1,2 +1,8 @@
 build/
+docs/*#
+engine/*#
+engine/include/*#
+engine/renderer/*#
+src/*#
+*#
 *~
