@@ -12,6 +12,7 @@ add_library(engine OBJECT
   renderer/Renderer.cpp
   renderer/VertexArray.cpp
   renderer/VertexBuffer.cpp
+  renderer/ElementBuffer.cpp
   renderer/utils.cpp
   src/Game.cpp
 )

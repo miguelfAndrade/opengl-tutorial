@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
+#include "ElementBuffer.h"
 
 Game::Game(int width, int height, const char* title) {
   if (!glfwInit()) {
@@ -68,19 +69,33 @@ void main() {
   // Triangle vertices
   // Take into account that the coordinates are normalized
   // Normalized Device Coordinates (NDC)
+  // float vertices[] = {
+  //     -0.5f, -0.5f, 0.0f,
+  //      0.5f, -0.5f, 0.0f,
+  //      0.0f,  0.5f, 0.0f
+  // };
+
   float vertices[] = {
-      -0.5f, -0.5f, 0.0f,
-       0.5f, -0.5f, 0.0f,
-       0.0f,  0.5f, 0.0f
+     0.5f,  0.5f, 0.0f,  // top right
+     0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f   // top left 
   };
 
+  unsigned int indices[] = {  // note that we start from 0!
+    0, 1, 3,   // first triangle
+    1, 2, 3    // second triangle
+  };
+  
   Renderer renderer;
   VertexBuffer vb(vertices, sizeof(vertices));
   VertexArray va;
+  ElementBuffer eb(indices, sizeof(indices));
   va.addVertexBuffer(vb);
 
   vb.unbind();
   va.unbind();
+  eb.unbind();
 
   // VAO (Vertex Array Object)
   // VBO (Vetex Buffer Object)
@@ -114,13 +129,15 @@ void main() {
   glLinkProgram(shaderProgram);
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
+
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
  
   while (!glfwWindowShouldClose(window)) {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       renderer.clear();
       // glClear(GL_COLOR_BUFFER_BIT);
       glUseProgram(shaderProgram);
-      renderer.draw(va);
+      renderer.draw(va, eb);
       // glBindVertexArray(VAO);
       // glDrawArrays(GL_TRIANGLES, 0, 3);
       glfwSwapBuffers(window);
