@@ -6,8 +6,8 @@
 
 Game::Game(int width, int height, const char* title) {
   if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW\n";
-        return;
+    std::cerr << "Failed to initialize GLFW\n";
+    return;
   }
 
   // Setting some properties to the new window that I want to create
@@ -20,19 +20,19 @@ Game::Game(int width, int height, const char* title) {
 
   window = glfwCreateWindow(width, height, title, nullptr, nullptr);
   if (!window) {
-        std::cerr << "Failed to create an OpenGL 3.3 window\n";
-        glfwTerminate();
-        return;
+    std::cerr << "Failed to create an OpenGL 3.3 window\n";
+    glfwTerminate();
+    return;
   }
 
-    // We need to specifically tell that we want the current OpenGL context
-    // We are using GLAD as our loader library that enables us to OpenGL extensions
-    glfwMakeContextCurrent(window);
-    if (!gladLoadGL(glfwGetProcAddress)) {
-        std::cerr << "Failed to load OpenGL functions\n";
-        glfwTerminate();
-        return;
-    }
+  // We need to specifically tell that we want the current OpenGL context
+  // We are using GLAD as our loader library that enables us to OpenGL extensions
+  glfwMakeContextCurrent(window);
+  if (!gladLoadGL(glfwGetProcAddress)) {
+    std::cerr << "Failed to load OpenGL functions\n";
+    glfwTerminate();
+    return;
+  }
 }
 
 Game::~Game() {
@@ -44,7 +44,7 @@ Game::~Game() {
 
 int Game::start() {
 
-const char* vertexShaderSource = R"(
+  const char* vertexShaderSource = R"(
 #version 330 core
 layout (location = 0) in vec3 aPos;
 void main() {
@@ -52,7 +52,7 @@ void main() {
 }
 )";
  
-const char* fragmentShaderSource = R"(
+  const char* fragmentShaderSource = R"(
 #version 330 core
 out vec4 FragColor;
 void main() {
@@ -76,8 +76,8 @@ void main() {
   // };
 
   float vertices[] = {
-     0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
+    0.5f,  0.5f, 0.0f,  // top right
+    0.5f, -0.5f, 0.0f,  // bottom right
     -0.5f, -0.5f, 0.0f,  // bottom left
     -0.5f,  0.5f, 0.0f   // top left 
   };
@@ -133,15 +133,15 @@ void main() {
   // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
  
   while (!glfwWindowShouldClose(window)) {
-      glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-      renderer.clear();
-      // glClear(GL_COLOR_BUFFER_BIT);
-      glUseProgram(shaderProgram);
-      renderer.draw(va, eb);
-      // glBindVertexArray(VAO);
-      // glDrawArrays(GL_TRIANGLES, 0, 3);
-      glfwSwapBuffers(window);
-      glfwPollEvents();
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    renderer.clear();
+    // glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(shaderProgram);
+    renderer.draw(va, eb);
+    // glBindVertexArray(VAO);
+    // glDrawArrays(GL_TRIANGLES, 0, 3);
+    glfwSwapBuffers(window);
+    glfwPollEvents();
   }
  
   // glDeleteVertexArrays(1, &VAO);
